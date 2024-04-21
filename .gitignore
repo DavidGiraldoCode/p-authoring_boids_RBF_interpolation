@@ -70,3 +70,17 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# macOS-specific files
+.DS_Store
+*.DS_Store
+
+# Thumbnail cache files created by macOS Finder
+._*
+
+# Files that store Spotlight metadata for folders and files
+.Spotlight-V100
+.Trashes
+
+# Directories potentially created on remote AFP share
+.AppleDouble
