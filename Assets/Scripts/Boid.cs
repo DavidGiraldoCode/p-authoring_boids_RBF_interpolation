@@ -50,6 +50,7 @@ public class Boid : MonoBehaviour
         Vector3 positionAccumulador = Vector3.zero;
         Vector3 averagePosition = Vector3.zero;
         //Boid forces
+        //The iteration happens on a collection IEnumerable<Boid>
         foreach (Boid neighbor in Flock.BoidManager.GetNeighbors(this, Flock.NeighborRadius))
         {
             float distance = (neighbor.Position - Position).magnitude;
@@ -81,8 +82,6 @@ public class Boid : MonoBehaviour
 
         averagePosition = positionAccumulador / Flock.BoidManager.GetNeighborsCount();
         cohesionForce = Flock.CohesionForceFactor * (averagePosition - Position);
-
-
 
         return alignmentForce + cohesionForce + separationForce;
     }

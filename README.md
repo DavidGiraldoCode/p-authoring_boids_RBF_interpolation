@@ -3,6 +3,21 @@
 **Status:** </br>
 I am currently working on a derivative of Craig Reynolds's 1987 paper: "Flocks, herds, and Schools: A Distributed Behavioral Model," as my final project for the course DH2323 Computer Graphics and Interaction at KTH Royal Institute of Technology.
 
+Current questions for interactive authoring
+
+1. What are the use cases of authoring Boids? The path of the geomtric flight?
+2. What variables should be expose to the designer to achieve a desired outcome?
+3. Should avoiding obstacles be a default behaviour? 
+
+Features road map
+
+| Backlog | Doing | Implemented | OutOfScope |
+| --- | --- | --- | --- |
+| Dynamic acceleration requests |  | Separation, Alignment and Cohesion Forces | Field of view |
+| Obstacle avoidance |  | Flock bounding box  |  |
+| Banking |  |  |  |
+| Space Partitioning |  |  |  |
+
 ## References
 
 [1] Craig W. Reynolds. 1987. Flocks, herds and schools: A distributed behavioral model. SIGGRAPH Comput. Graph. 21, 4 (July 1987), 25–34. https://doi.org/10.1145/37402.37406
