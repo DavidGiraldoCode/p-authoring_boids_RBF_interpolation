@@ -5,6 +5,7 @@ using UnityEngine;
 public class BoidManager : MonoBehaviour
 {
     // Container of boids
+    //References: https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic?view=net-8.0
     private List<Boid> m_boids;
     void Start()
     {
@@ -21,6 +22,8 @@ public class BoidManager : MonoBehaviour
 
 
             //? void List<Boid>.AddRange(IEnumerable<Boid> collection)
+            //Add a collection of Objects(Boid) to the List<T>, it uses the 
+            //IEnumerable<T> interface.
             m_boids.AddRange(flock.SpawnBirds());
         }
     }
@@ -39,7 +42,12 @@ public class BoidManager : MonoBehaviour
         }
     }
 
-    //TODO check for IEnumerable
+    //* IEnumerable<T>
+    /*
+    IEnmerable is an interface that makes enables iteration over a collection,
+    by exposing the enumerator. Here, GetNeighbors is retunrning a collection
+    of all the boids that fit the condition of being a neighbor of the current boid
+    */
     //TODO check for yield 
     //TODO check if boids from flock A and change to flock B
     public IEnumerable<Boid> GetNeighbors(Boid boid, float radius)
@@ -48,7 +56,7 @@ public class BoidManager : MonoBehaviour
         foreach (var other in m_boids)
         {
             if (other != boid && (other.Position - boid.Position).sqrMagnitude < radiusSq)
-                yield return other;
+                yield return other; //The yield return is providing the collection with the next boid in the interation
         }
     }
 

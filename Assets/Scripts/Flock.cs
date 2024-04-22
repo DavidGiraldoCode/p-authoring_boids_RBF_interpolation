@@ -116,6 +116,9 @@ public class Flock : MonoBehaviour
             boid.Velocity = Random.insideUnitSphere;
             boid.Flock = this; //Add the instance of THIS flock
             boid.transform.parent = this.transform;
+            //Returns the IEnumerable objects
+            // yield return Provides the next boid in the iteration
+            //https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/yield#code-try-1
             yield return boid;
         }
     }
