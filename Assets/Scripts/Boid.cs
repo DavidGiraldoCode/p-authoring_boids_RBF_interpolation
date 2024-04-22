@@ -1,0 +1,111 @@
+using UnityEngine;
+
+public class Boid : MonoBehaviour
+{
+    //Create a reference to an intance type Flock
+    public Flock Flock { get; set; }
+
+    public Vector3 Position;
+    public Vector3 Velocity;
+    public Vector3 Acceleration;
+    void Start()
+    {
+        //TODO review
+        Velocity = Random.insideUnitSphere * 2;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+    //Custom Methods
+     public void UpdateSimulation(float deltaTime)
+    {
+        //Clear acceleration from last frame
+        Acceleration = Vector3.zero;
+
+        //Apply forces
+        Acceleration += Flock.GetForceFromBounds(this);
+        Acceleration += GetConstraintSpeedForce();
+        Acceleration += GetSteeringForce();
+
+        //Step simulation
+        Velocity += deltaTime * Acceleration;
+        Position += 0.5f * deltaTime * deltaTime * Acceleration + deltaTime * Velocity;
+    }
+
+    //Internal computation of the forces:
+
+    Vector3 GetSteeringForce()
+    {
+        Vector3 cohesionForce = Vector3.zero;
+        Vector3 alignmentForce = Vector3.zero;
+        Vector3 separationForce = Vector3.zero;
+
+        //Average velocity
+        Vector3 velocityAccumulador = Vector3.zero;
+        Vector3 averageVelocity = Vector3.zero;
+        //Average position
+        Vector3 positionAccumulador = Vector3.zero;
+        Vector3 averagePosition = Vector3.zero;
+        //Boid forces
+        foreach (Boid neighbor in Flock.BoidManager.GetNeighbors(this, Flock.NeighborRadius))
+        {
+            float distance = (neighbor.Position - Position).magnitude;
+
+            //Separation force
+            if (distance < Flock.SeparationRadius)
+            {
+                separationForce += Flock.SeparationForceFactor * ((Flock.SeparationRadius - distance) / distance) * (Position - neighbor.Position);
+            }
+
+            //TODO Calculate average position/velocity here
+            //Aerage velocity
+            if (distance < Flock.AlignmentRadius)
+            {
+                velocityAccumulador += neighbor.Velocity;
+            }
+
+            //Aerage velocity
+            if (distance < Flock.CohesionRadius)
+            {
+                positionAccumulador += neighbor.Position;
+            }
+            
+        }
+
+        //Set cohesion/alignment forces here
+        averageVelocity = velocityAccumulador / Flock.BoidManager.GetNeighborsCount();
+        alignmentForce = Flock.AlignmentForceFactor * (averageVelocity - Velocity);
+
+        averagePosition = positionAccumulador / Flock.BoidManager.GetNeighborsCount();
+        cohesionForce = Flock.CohesionForceFactor * (averagePosition - Position);
+
+
+
+        return alignmentForce + cohesionForce + separationForce;
+    }
+
+    Vector3 GetConstraintSpeedForce()
+    {
+        Vector3 force = Vector3.zero;
+
+        //Apply drag
+        force -= Flock.Drag * Velocity;
+
+        float vel = Velocity.magnitude;
+        if (vel > Flock.MaxSpeed)
+        {
+            //If speed is above the maximum allowed speed, apply extra friction force
+            force -= (20.0f * (vel - Flock.MaxSpeed) / vel) * Velocity;
+        }
+        else if (vel < Flock.MinSpeed)
+        {
+            //Increase the speed slightly in the same direction if it is below the minimum
+            force += (5.0f * (Flock.MinSpeed - vel) / vel) * Velocity;
+        }
+
+        return force;
+    }
+}
