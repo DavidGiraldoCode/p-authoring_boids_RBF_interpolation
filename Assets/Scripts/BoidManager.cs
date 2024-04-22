@@ -8,6 +8,7 @@ public class BoidManager : MonoBehaviour
     private List<Boid> m_boids;
     void Start()
     {
+        //TODO separation of concerns, create a new method to create boids
         m_boids = new List<Boid>();
 
         //Get ALL the instances of the Flock class on the scene.
@@ -40,6 +41,7 @@ public class BoidManager : MonoBehaviour
 
     //TODO check for IEnumerable
     //TODO check for yield 
+    //TODO check if boids from flock A and change to flock B
     public IEnumerable<Boid> GetNeighbors(Boid boid, float radius)
     {
         float radiusSq = radius * radius;

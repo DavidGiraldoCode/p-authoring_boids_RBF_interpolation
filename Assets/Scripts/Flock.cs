@@ -111,7 +111,7 @@ public class Flock : MonoBehaviour
             for (int j = 0; j < 3; ++j)
                 spawnPoint[j] = Mathf.Clamp(spawnPoint[j], m_bounds.bounds.min[j], m_bounds.bounds.max[j]);
 
-            Boid boid = Instantiate(m_birdPrefab, spawnPoint, m_birdPrefab.transform.rotation) as Boid;
+            Boid boid = Instantiate(m_birdPrefab, spawnPoint, m_birdPrefab.transform.rotation) as Boid; //! IMPORTANT as Boid
             boid.Position = spawnPoint;
             boid.Velocity = Random.insideUnitSphere;
             boid.Flock = this; //Add the instance of THIS flock
