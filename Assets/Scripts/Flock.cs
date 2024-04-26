@@ -85,9 +85,13 @@ public class Flock : MonoBehaviour
         get { return m_minSpeed; }
         set { m_minSpeed = value; }
     }
-
+    
     [SerializeField]
     private float m_drag = 0.1f;
+    // Flow -----------------------------
+    [Header("Flow control -----------")]
+    [SerializeField]
+    public bool hasFlow = false;
     public float Drag
     {
         get { return m_drag; }
@@ -156,5 +160,11 @@ public class Flock : MonoBehaviour
 
         force += 0.1f * friction * boid.Velocity;
         return -m_boundsForceFactor * force;
+    }
+
+    //Flow
+    public bool GetFlow()
+    {
+        return hasFlow;
     }
 }
