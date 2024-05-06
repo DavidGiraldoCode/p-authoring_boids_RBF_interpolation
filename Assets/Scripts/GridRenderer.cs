@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using p_bois_steering_behaviors.Scripts;
+
 public class GridRenderer : MonoBehaviour
 {
     private UniformGrid m_grid;
@@ -10,7 +11,7 @@ public class GridRenderer : MonoBehaviour
     [SerializeField] private int numberOfRows = 32;
     [SerializeField] private int[] minPoint = { -40, -40 };
     [SerializeField] private int[] maxPoint = { 40, 40 };
-    //? Pending for abstraction =======================================
+    //TODO Pending for abstraction =======================================
     private Vector3 sourceP1 = new Vector3(20, 20, 0);
     private Vector3 sourceP2 = new Vector3(-20, -20, 0);
     private Vector3 sourceP3 = new Vector3(0, 0, 0);
@@ -20,6 +21,9 @@ public class GridRenderer : MonoBehaviour
     private Vector3 sourceV3 = new Vector3(8, 0, 0);
     private List<Vector3> sourcePoints = new List<Vector3>();
     private List<Vector3> sourceVectors = new List<Vector3>();
+    //? Temporal LIST of interpolated vectors
+
+    private List<Vector3> lerpVectors = new List<Vector3>();
 
     private double[,] matrixPHIforX;
     private double[,] matrixPHIforY;
@@ -41,6 +45,7 @@ public class GridRenderer : MonoBehaviour
 
         ComputeInterpolationMatrix(sourcePoints, sourceVectors);
 
+        /*
         string XrowString = "";
         string YrowString = "";
         // Get the number of rows (first dimension)
@@ -67,16 +72,37 @@ public class GridRenderer : MonoBehaviour
             }
             Debug.Log(YrowString);
             YrowString = "";
-        }
+        }*/
 
         // Perform Gaussian elimination
         GaussianElimination(matrixPHIforX);
         GaussianElimination(matrixPHIforY);
         ComputeLamdasVector(matrixPHIforX, m_XLamdas);
         ComputeLamdasVector(matrixPHIforY, m_YLamdas);
+        PrintArrayItems(m_XLamdas);
+        //! READ ME =========================================================
+        /* DevLog 2024 05 06 7:55
+        The interpolation matrix seems to work.
+        I havent check if the Gaussian yields the proper ruesult.
+        Check for the output of the Gassiuan matrix and the lamdas vector.
+        The interpolated vector now are {0,0,0}
+        */
 
-
-
+        foreach (Vector3 point in m_grid)
+        {
+            lerpVectors.Add(InterpolateVector(point));
+        }
+        Debug.Log(lerpVectors.Count);
+        Debug.Log(lerpVectors[0]);
+    }
+     void PrintArrayItems<T>(T[] arr)
+    {
+        // Iterate over each item in the array
+        foreach (T item in arr)
+        {
+            // Print the item using Debug.Log
+            Debug.Log(item);
+        }
     }
 
     void Update()
@@ -86,15 +112,30 @@ public class GridRenderer : MonoBehaviour
         RenderSourceVectorAtPoint(sourceP1, sourceV1);
         RenderSourceVectorAtPoint(sourceP2, sourceV2);
         RenderSourceVectorAtPoint(sourceP3, sourceV3);
-
-
+    }
+    private Vector3 InterpolateVector(Vector3 samplePoint)
+    {
+        float interpolantX = 0;
+        float interpolantY = 0;
+        for (int i = 0; i < sourcePoints.Count; i++)
+        {
+            interpolantX += (float)m_XLamdas[i] * Phi(samplePoint, sourcePoints[i]);
+            interpolantY += (float)m_XLamdas[i] * Phi(samplePoint, sourcePoints[i]);
+        }
+        Vector3 interpolatedVector = new Vector3(interpolantX, interpolantY, 0);
+        return interpolatedVector;
     }
     private void RenderPointUniformGrid()
     {
+        int index = 0;
         foreach (Vector3 point in m_grid)
         {
-            Vector3 direction = point + new Vector3(1, 1, 0);
+            
+            //int index = m_grid.GetList().IndexOf(point);
+            Vector3 dir = lerpVectors[index];
+            Vector3 direction = point + dir;//new Vector3(1, 1, 0);
             Debug.DrawLine(point, direction, Color.yellow);
+            index++;
         }
     }
 
