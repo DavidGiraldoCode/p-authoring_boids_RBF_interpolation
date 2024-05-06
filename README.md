@@ -3,6 +3,10 @@
 **Status:** </br>
 I am currently working on a derivative of Craig Reynolds's 1987 paper: "Flocks, herds, and Schools: A Distributed Behavioral Model," as my final project for the course DH2323 Computer Graphics and Interaction at KTH Royal Institute of Technology.
 
+## Updates:
+I have added two stationary force fields to author the behavior of the boids.
+<img src="https://github.com/DavidGiraldoCode/p-bois_steering_behaviors/blob/single_flow_force/Assets/Art/Flow_fields_test.gif?raw=true" alt="Alt text" width="80%">
+
 Current questions for interactive authoring
 
 1. What are the use cases of authoring Boids? The path of the geomtric flight?
@@ -29,3 +33,5 @@ Features road map
 [4] Hartman, C. and Benes̆, B. (2006), Autonomous boids. Comp. Anim. Virtual Worlds, 17: 199-206. https://doi.org/10.1002/cav.123
 
 [5] Lemonari, M., Blanco, R., Charalambous, P., Pelechano, N., Avraamides, M., Pettré, J. and Chrysanthou, Y. (2022), Authoring Virtual Crowds: A Survey. Computer Graphics Forum, 41: 677-701. https://doi.org/10.1111/cgf.14506
+
+[6] Branislav Ulicny, Pablo de Heras Ciechomski, and Daniel Thalmann. 2004. Crowdbrush: interactive authoring of real-time crowd scenes. In Proceedings of the 2004 ACM SIGGRAPH/Eurographics symposium on Computer animation (SCA '04). Eurographics Association, Goslar, DEU, 243–252. https://doi.org/10.1145/1028523.1028555
