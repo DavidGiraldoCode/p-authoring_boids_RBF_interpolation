@@ -3,6 +3,10 @@
 **Status:** </br>
 I am currently working on a derivative of Craig Reynolds's 1987 paper: "Flocks, herds, and Schools: A Distributed Behavioral Model," as my final project for the course DH2323 Computer Graphics and Interaction at KTH Royal Institute of Technology.
 
+## Updates:
+I have added two stationary force fields to author the behavior of the boids.
+<img src="https://github.com/DavidGiraldoCode/p-bois_steering_behaviors/blob/single_flow_force/Assets/Art/Flow_fields_test.gif?raw=true" alt="Alt text" width="80%">
+
 Current questions for interactive authoring
 
 1. What are the use cases of authoring Boids? The path of the geomtric flight?

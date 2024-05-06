@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Boid : MonoBehaviour
@@ -20,7 +21,7 @@ public class Boid : MonoBehaviour
 
     }
     //Custom Methods
-     public void UpdateSimulation(float deltaTime)
+    public void UpdateSimulation(float deltaTime)
     {
         //Clear acceleration from last frame
         Acceleration = Vector3.zero;
@@ -29,6 +30,8 @@ public class Boid : MonoBehaviour
         Acceleration += Flock.GetForceFromBounds(this);
         Acceleration += GetConstraintSpeedForce();
         Acceleration += GetSteeringForce();
+        if(Flock.GetFlow())
+            Acceleration += GetStationaryFlowForce();
 
         //Step simulation
         Velocity += deltaTime * Acceleration;
@@ -73,7 +76,7 @@ public class Boid : MonoBehaviour
             {
                 positionAccumulador += neighbor.Position;
             }
-            
+
         }
 
         //Set cohesion/alignment forces here
@@ -107,4 +110,35 @@ public class Boid : MonoBehaviour
 
         return force;
     }
+
+    //Flow force
+    Vector3 GetStationaryFlowForce()
+    {
+        Vector3 flow = Vector3.zero;
+        Vector3 flowForceLocationOne = new Vector3(0,4,0);
+        Vector3 flowForceLocationTwo = new Vector3(0,-4,0);
+        float flowRadius = 3f;
+
+        //Flow One
+        if ((flowForceLocationOne - Position).magnitude < flowRadius)
+        {
+            //Debuging
+            Debug.DrawLine(flowForceLocationOne, Position, Color.grey);
+            flow = Vector3.up * 40f;
+            return flow;
+        }
+
+        //Flow Two
+        if ((flowForceLocationTwo - Position).magnitude < flowRadius)
+        {
+            //Debuging
+            Debug.DrawLine(flowForceLocationTwo, Position, Color.grey);
+            flow = Vector3.down * 40f;
+            return flow;
+        }
+
+        return flow;
+    }
+
+
 }
