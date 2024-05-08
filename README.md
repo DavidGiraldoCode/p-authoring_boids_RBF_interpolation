@@ -1,15 +1,12 @@
 # Interactive authoring of boids for video games using Radial Basis Functions (RBF)
 
-<aside>
-🚧 I am currently working on my final project for the course DH2323 Computer Graphics and Interaction at KTH Royal Institute of Technology.
-
-</aside>
-
+**🚧 I am currently working on my final project for the course DH2323 Computer Graphics and Interaction at KTH Royal Institute of Technology.**
+<br/>
+<br/>
 How do we interpolate when there is no grid? Having no sample grid is a scattered data problem for which traditional linear interpolation does not suffice. Thus, Radial Basis Functions exist as a solution for this problem by defining a function capable of interpolating any given discrete value in space, given all the values at source points.
 
 $$
 S(\mathbf{x}) = \sum_{i=1}^{n} \lambda_i \phi(||\mathbf{x} - \mathbf{x}_i||), \quad \mathbf{x} \in \mathbb{R}^d.
-
 $$
 
 $$
@@ -21,6 +18,11 @@ Jin (2009) presented an application of crow authoring relaying on path-planning 
 I am implementing and applying their paper to author the flow of a flock of boids.
 
 ## Updates
+<img width="640px" src="https://github.com/DavidGiraldoCode/p-bois_steering_behaviors/blob/develop/Assets/Art/Flow_fields_test.gif"/>
+<div style = "display: flex">
+    <img width="320px" src="https://github.com/DavidGiraldoCode/p-bois_steering_behaviors/blob/develop/Assets/Art/Images/image.png"/>
+    <img width="320px" src="https://github.com/DavidGiraldoCode/p-bois_steering_behaviors/blob/develop/Assets/Art/Images/vf1.png"/>
+<div/>
 
 ## Next steps
 
