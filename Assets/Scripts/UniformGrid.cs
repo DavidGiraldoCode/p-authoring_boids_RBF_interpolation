@@ -7,52 +7,31 @@ namespace p_bois_steering_behaviors.Scripts
 {
     public class UniformGrid : IEnumerable<Vector3>
     {
-        private int m_nx, m_ny, m_nCols, m_nRows, m_dx, m_dy;
+        private int m_nx, m_ny, m_nCols, m_nRows; 
+        private float m_dx, m_dy;
         private List<Vector3> m_samplePoints; //holds 3D coordinates in space
         public UniformGrid(int nx, int ny, int[] minPoint, int[] maxPoint)
         {
-            if (nx <= 1)
-            {
-                m_nx = 2;
-            }
-            else
-            {
-                m_nx = nx;
-            }
-            if (ny <= 1)
-            {
-                m_ny = 2;
-            }
-            else
-            {
-                m_ny = ny;
-            }
+            m_nx = nx <= 1 ? 2 : nx;
+            m_ny = ny <= 1 ? 2 : ny;
 
             m_nCols = m_nx - 1; //number of rows cells
             m_nRows = m_ny - 1; //number of columns cells
 
-            m_samplePoints = new List<Vector3>
-            {
-                Capacity = m_nx * m_ny
-            };
+            m_samplePoints = new List<Vector3> { Capacity = m_nx * m_ny };
 
             int xMin = minPoint[0];
             int yMin = minPoint[1];
             int xMax = maxPoint[0];
             int yMax = maxPoint[1];
 
-            m_dx = (xMax - xMin) / m_nCols; // Call's width
-            m_dy = 0;
-            if (m_ny > 1)
-            {
-                m_dy = (yMax - yMin) / m_nRows; // Cell's height
-            }
+            m_dx = (xMax - xMin) / (float) m_nCols; // Cell's width
+            m_dy = m_ny > 1 ? (yMax - yMin) / (float)  m_nRows : 0; // Cell's height
 
             for (int y = 0; y < m_ny; y++)
             {
                 for (int x = 0; x < m_nx; x++)
                 {
-
                     int linearIndex = (y * m_nx) + x;
 
                     float Vx = (x * m_dx) + xMin;
@@ -60,7 +39,6 @@ namespace p_bois_steering_behaviors.Scripts
                     float Vz = 0f; // for now.
 
                     m_samplePoints.Add(new Vector3(Vx, Vy, Vz));
-
                 }
             }
         }
