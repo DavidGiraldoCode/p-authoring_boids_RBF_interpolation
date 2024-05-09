@@ -9,20 +9,42 @@ $$
 S(\mathbf{x}) = \sum_{i=1}^{n} \lambda_i \phi(||\mathbf{x} - \mathbf{x}_i||), \quad \mathbf{x} \in \mathbb{R}^d.
 $$
 
+The Radial Basis function Φ(x) Phi is determined by the Euclidean distance formula and a kernel, which can be changed depending on the desired outcome.
+
 $$
 \Phi(r) = ||\mathbf{x} - \mathbf{x}_i||
 $$
+
+```csharp
+double Phi(Vector3 vector_j, Vector3 vector_i) //RBF
+{
+    Vector3 distance = vector_j - vector_i;
+    float r = distance.magnitude;
+    double GSkernel = Math.Exp(-0.001 * Math.Pow(r, 2)); //Gaussian (GS)
+    double Skernel = r;  //Spline (S)
+    return Skernel;
+}
+```
 
 Jin (2009) presented an application of crow authoring relaying on path-planning components. They incorporated radial basis function interpolation of vector fields to guide pedestrians' flow in a grid-less setup.
 
 I am implementing and applying their paper to author the flow of a flock of boids.
 
 ## Updates
-<img width="640px" src="https://github.com/DavidGiraldoCode/p-bois_steering_behaviors/blob/develop/Assets/Art/Flow_fields_test.gif"/>
+2024 May 9
+<br/>
+<img width="640px" src="https://github.com/DavidGiraldoCode/p-bois_steering_behaviors/blob/boid_follow_vector_field/Assets/Art/Images/boid_zig_zag.gif"/>
+<br/>
+2024 May 6
+<br/>
 <div style = "display: flex">
     <img width="320px" src="https://github.com/DavidGiraldoCode/p-bois_steering_behaviors/blob/develop/Assets/Art/Images/image.png"/>
     <img width="320px" src="https://github.com/DavidGiraldoCode/p-bois_steering_behaviors/blob/develop/Assets/Art/Images/vf1.png"/>
 <div/>
+<br/>
+2024 April
+<br/>
+<img width="640px" src="https://github.com/DavidGiraldoCode/p-bois_steering_behaviors/blob/develop/Assets/Art/Flow_fields_test.gif"/>
 
 ## Next steps
 
