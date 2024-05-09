@@ -12,15 +12,15 @@ public class GridRenderer : MonoBehaviour
     [SerializeField] private int[] minPoint = { -10, -10 };
     [SerializeField] private int[] maxPoint = { 10, 10 };
     //TODO Pending for abstraction =======================================
-    private Vector3 sourceP1 = new Vector3(30, 30, 0);
-    private Vector3 sourceP2 = new Vector3(-20, 20, 0);
-    private Vector3 sourceP3 = new Vector3(-20, -20, 0);
-    private Vector3 sourceP4 = new Vector3(30, -30, 0);
+    private Vector3 sourceP1 = new Vector3(40, 0, -40);
+    private Vector3 sourceP2 = new Vector3(10, 0, -10);
+    private Vector3 sourceP3 = new Vector3(-10, 0, 10);
+    private Vector3 sourceP4 = new Vector3(-40, 0, 40);
 
-    private Vector3 sourceV1 = new Vector3(15, 10, 0);
-    private Vector3 sourceV2 = new Vector3(10, 10, 0);
-    private Vector3 sourceV3 = new Vector3(-10, 2, 0);
-    private Vector3 sourceV4 = new Vector3(-20, 1, 0);
+    private Vector3 sourceV1 = new Vector3(5, 0, 20);
+    private Vector3 sourceV2 = new Vector3(-20, 0, -5);
+    private Vector3 sourceV3 = new Vector3(5, 0, 20);
+    private Vector3 sourceV4 = new Vector3(-20, 0, -5);
     private List<Vector3> sourcePoints = new List<Vector3>();
     private List<Vector3> sourceVectors = new List<Vector3>();
     //? Temporal LIST of interpolated vectors
@@ -32,6 +32,7 @@ public class GridRenderer : MonoBehaviour
     private double[] m_YLamdas;
     void Start()
     {
+        Debug.Log("GridRenderer up and running");
         sourcePoints.Add(sourceP1);
         sourcePoints.Add(sourceP2);
         sourcePoints.Add(sourceP3);
@@ -97,16 +98,20 @@ public class GridRenderer : MonoBehaviour
         index = 0;
     }
 
-    private Vector3 InterpolateVector(Vector3 samplePoint)
+    public Vector3 InterpolateVector(Vector3 samplePoint)
     {
         float interpolantX = 0;
         float interpolantY = 0;
+        //Debug.Log("sourcePoints.Count" + sourcePoints.Count);
+        //Debug.Log("m_XLamdas[i]" + m_XLamdas[0]);
         for (int i = 0; i < sourcePoints.Count; i++)
         {
             interpolantX += (float)m_XLamdas[i] * (float)Phi(samplePoint, sourcePoints[i]);
             interpolantY += (float)m_YLamdas[i] * (float)Phi(samplePoint, sourcePoints[i]);
         }
-        Vector3 interpolatedVector = new Vector3(interpolantX, interpolantY, 0);
+        Vector3 interpolatedVector = new Vector3(interpolantX, 0, interpolantY);
+        //Debug.Log("samplePoint: " + samplePoint + " interpolantXY ( " + interpolantX + ", " + interpolantY + " )");
+        //Debug.Log(" InterpolateVector() ->" + interpolatedVector);
         return interpolatedVector;
     }
     private void RenderPointUniformGrid()
@@ -126,7 +131,7 @@ public class GridRenderer : MonoBehaviour
         Vector3 direction = point + vector;
         Debug.DrawLine(point, direction, Color.red);
     }
-
+    //! the computation of the matrix to be laying donw on the floor is changed to (x,z)
     private void ComputeInterpolationMatricesXY(List<Vector3> points, List<Vector3> vectors) //Relationship between source points
     {
         int rows = points.Count;
@@ -146,7 +151,7 @@ public class GridRenderer : MonoBehaviour
                 else
                 {
                     matrixX[j, i] = vectors[j].x;
-                    matrixY[j, i] = vectors[j].y;
+                    matrixY[j, i] = vectors[j].z;
                 }
             }
         }
