@@ -90,11 +90,12 @@ public class Flock : MonoBehaviour
     private float m_drag = 0.1f;
     // Flow -----------------------------
     [Header("Flow control -----------")]
-    [SerializeField]
-    public bool hasFlow = false;
+    [SerializeField] public bool hasFlow = false;
     //TODO ------------------------------------- Vector Field
     [Header("Vector Field Instance -----------")]
-    [SerializeField] private GameObject vectorField;
+    //[SerializeField] private GameObject vectorField;
+    [SerializeField] private GridRenderer gridRenderer;
+    [SerializeField] public bool  hasVectorField = false;
     //TODO -------------------------------------
     public float Drag
     {
@@ -133,7 +134,7 @@ public class Flock : MonoBehaviour
     void Awake()
     {
 
-        Instantiate(vectorField, transform.position, transform.rotation);
+        gridRenderer = GetComponent<GridRenderer>();
     }
 
     // Update is called once per frame
@@ -174,16 +175,24 @@ public class Flock : MonoBehaviour
     }
 
     //TODO Vector Field
+    public bool HasVectorField()
+    {
+        return hasVectorField;
+    }
 
     public Vector3 GetForceFromVectorField(Boid boid)
     {
-        if (vectorField)
+        if (gridRenderer)
         {
 
             Vector3 projectedFlight = new Vector3(boid.Position.x, 0, boid.Position.z);
             //Debug.Log("Interpolating at " + projectedFlight);
-            Vector3 force = vectorField.GetComponent<GridRenderer>().InterpolateVector(projectedFlight);
+            //? Notice, callng GetComponent returns a reference to the component of a given GameObject
+            //? BUT, in this case the GridRenderer is empty. Is not retuning the current intance on the game ar Runtime
+            //? With the data it holds
+            //Vector3 force = vectorField.GetComponent<GridRenderer>().InterpolateVector(projectedFlight);
             //Debug.Log("RESULT " + force);
+            Vector3 force = gridRenderer.InterpolateVector(boid.Position) * 20f;
             return force;
         }
         return Vector3.zero;

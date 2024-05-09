@@ -26,11 +26,13 @@ I am implementing and applying their paper to author the flow of a flock of boid
 
 ## Next steps
 
-- [ ]  Control 1 boid in 3D with the vector field in 2D
+- [x]  Control 1 boid in 3D with the vector field in 2D
     - [x]  Place the VF on the ground under the flying area (using x,z instead of x,y)
-    - [ ]  Use the X and Z coordinates to sample a point in the vector field.
-    - [ ]  Interpolate the vector components with the RBFs
-    - [ ]  Apply the force of the field on the boid’s behavior
+    - [x]  Use the X and Z coordinates to sample a point in the vector field.
+    - [x]  Interpolate the vector components with the RBFs
+    - [x]  Apply the force of the field on the boid’s behavior
+- [ ]  Create zig zag
+- [ ]  Add a spawn zone
 
 ## More about crowd simulations
 

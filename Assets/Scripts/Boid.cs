@@ -1,4 +1,5 @@
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Boid : MonoBehaviour
@@ -34,7 +35,8 @@ public class Boid : MonoBehaviour
             Acceleration += GetStationaryFlowForce();
 
         //TODO -------- Interpolation with the Vector Field
-
+        if (Flock.HasVectorField())
+            Acceleration += Flock.GetForceFromVectorField(this);
 
         //Step simulation
         Velocity += deltaTime * Acceleration;
@@ -150,15 +152,12 @@ public class Boid : MonoBehaviour
 
     private void ProjectFlightOntoVectorField()
     {
-        Vector3 endpoint = Vector3.down * 10;
-        
-
         Vector3 projectedPosition = new Vector3(Position.x, 0, Position.z);
         Vector3 boidVFSample = Flock.GetForceFromVectorField(this);
         //Debug.Log("boidVFSample: " + boidVFSample);
-
-        Vector3 direction = projectedPosition + (boidVFSample * 0.1f);
+        Vector3 directionOnVF = projectedPosition + (boidVFSample * 0.4f);
+        //Vector3 projectedXZVelocity = new Vector3(Velocity.x, 0, Velocity.z);
         Debug.DrawLine(Position, projectedPosition, Color.black);
-        Debug.DrawLine(projectedPosition, direction, Color.yellow);
+        Debug.DrawLine(projectedPosition, directionOnVF, Color.green);
     }
 }

@@ -12,15 +12,15 @@ public class GridRenderer : MonoBehaviour
     [SerializeField] private int[] minPoint = { -10, -10 };
     [SerializeField] private int[] maxPoint = { 10, 10 };
     //TODO Pending for abstraction =======================================
-    private Vector3 sourceP1 = new Vector3(6, 0, 6);
-    private Vector3 sourceP2 = new Vector3(-4, 0, 4);
-    private Vector3 sourceP3 = new Vector3(-4, 0, -4);
-    private Vector3 sourceP4 = new Vector3(6, 0, -6);
+    private Vector3 sourceP1 = new Vector3(10, 0, 10);
+    private Vector3 sourceP2 = new Vector3(-8, 0, 8);
+    private Vector3 sourceP3 = new Vector3(-8, 0, -8);
+    private Vector3 sourceP4 = new Vector3(10, 0, -10);
 
-    private Vector3 sourceV1 = new Vector3(3, 0, 2);
-    private Vector3 sourceV2 = new Vector3(2, 0, 2);
-    private Vector3 sourceV3 = new Vector3(-2, 0, 1);
-    private Vector3 sourceV4 = new Vector3(-4, 0, 1);
+    private Vector3 sourceV1 = new Vector3(8, 0, 8);
+    private Vector3 sourceV2 = new Vector3(-8, 0, 8);
+    private Vector3 sourceV3 = new Vector3(6, 0, 6);
+    private Vector3 sourceV4 = new Vector3(-6, 0, 6);
     private List<Vector3> sourcePoints = new List<Vector3>();
     private List<Vector3> sourceVectors = new List<Vector3>();
     //? Temporal LIST of interpolated vectors
@@ -102,14 +102,16 @@ public class GridRenderer : MonoBehaviour
     {
         float interpolantX = 0;
         float interpolantY = 0;
+        //Debug.Log("sourcePoints.Count" + sourcePoints.Count);
+        //Debug.Log("m_XLamdas[i]" + m_XLamdas[0]);
         for (int i = 0; i < sourcePoints.Count; i++)
         {
             interpolantX += (float)m_XLamdas[i] * (float)Phi(samplePoint, sourcePoints[i]);
             interpolantY += (float)m_YLamdas[i] * (float)Phi(samplePoint, sourcePoints[i]);
         }
         Vector3 interpolatedVector = new Vector3(interpolantX, 0, interpolantY);
-        Debug.Log("samplePoint: " + samplePoint + " interpolantXY ( " + interpolantX + ", " + interpolantY + " )");
-        Debug.Log(" InterpolateVector() ->" + interpolatedVector);
+        //Debug.Log("samplePoint: " + samplePoint + " interpolantXY ( " + interpolantX + ", " + interpolantY + " )");
+        //Debug.Log(" InterpolateVector() ->" + interpolatedVector);
         return interpolatedVector;
     }
     private void RenderPointUniformGrid()

@@ -482,6 +482,7 @@ GameObject:
   - component: {fileID: 1438368854}
   - component: {fileID: 1438368853}
   - component: {fileID: 1438368855}
+  - component: {fileID: 1438368856}
   m_Layer: 0
   m_Name: FlockOfBirds
   m_TagString: Untagged
@@ -508,7 +509,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 20, y: 16, z: 20}
+  m_Size: {x: 100, y: 16, z: 100}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1438368854
 Transform:
@@ -542,19 +543,35 @@ MonoBehaviour:
     type: 3}
   m_spawnRadius: 10
   m_bounds: {fileID: 1438368853}
-  m_boundsForceFactor: 20
-  m_cohesionForceFactor: 4
-  m_cohesionRadius: 10
+  m_boundsForceFactor: 10
+  m_cohesionForceFactor: 2
+  m_cohesionRadius: 6
   m_separationForceFactor: 6
   m_separationRadius: 2
   m_alignmentForceFactor: 1
-  m_alignmentRadius: 4
+  m_alignmentRadius: 3
   m_maxSpeed: 20
   m_minSpeed: 10
   m_drag: 0
   hasFlow: 0
-  vectorField: {fileID: 6357400172096169491, guid: 456f4ab2546be4e5eab3fb793024ffe5,
-    type: 3}
+  gridRenderer: {fileID: 0}
+  hasVectorField: 0
+--- !u!114 &1438368856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438368852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65dad0f867fb8420bb191e4335d7d3da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfColumns: 8
+  numberOfRows: 8
+  minPoint: ceffffffceffffff
+  maxPoint: 3200000032000000
 --- !u!1 &2022199322
 GameObject:
   m_ObjectHideFlags: 0
