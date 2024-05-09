@@ -35,8 +35,8 @@ namespace p_bois_steering_behaviors.Scripts
                     int linearIndex = (y * m_nx) + x;
 
                     float Vx = (x * m_dx) + xMin;
-                    float Vy = (y * m_dy) + yMin;
-                    float Vz = 0f; // for now.
+                    float Vy = 0f;//(y * m_dy) + yMin;
+                    float Vz = (y * m_dy) + yMin;// 0f; // for now.
 
                     m_samplePoints.Add(new Vector3(Vx, Vy, Vz));
                 }

@@ -30,12 +30,18 @@ public class Boid : MonoBehaviour
         Acceleration += Flock.GetForceFromBounds(this);
         Acceleration += GetConstraintSpeedForce();
         Acceleration += GetSteeringForce();
-        if(Flock.GetFlow())
+        if (Flock.GetFlow())
             Acceleration += GetStationaryFlowForce();
+
+        //TODO -------- Interpolation with the Vector Field
+
 
         //Step simulation
         Velocity += deltaTime * Acceleration;
         Position += 0.5f * deltaTime * deltaTime * Acceleration + deltaTime * Velocity;
+
+        //? Visualizing projected flight
+        ProjectFlightOntoVectorField();
     }
 
     //Internal computation of the forces:
@@ -115,8 +121,8 @@ public class Boid : MonoBehaviour
     Vector3 GetStationaryFlowForce()
     {
         Vector3 flow = Vector3.zero;
-        Vector3 flowForceLocationOne = new Vector3(0,4,0);
-        Vector3 flowForceLocationTwo = new Vector3(0,-4,0);
+        Vector3 flowForceLocationOne = new Vector3(0, 4, 0);
+        Vector3 flowForceLocationTwo = new Vector3(0, -4, 0);
         float flowRadius = 3f;
 
         //Flow One
@@ -140,5 +146,19 @@ public class Boid : MonoBehaviour
         return flow;
     }
 
+    //? HELPER METHODS to allow visualizing the projected position of the boid
 
+    private void ProjectFlightOntoVectorField()
+    {
+        Vector3 endpoint = Vector3.down * 10;
+        
+
+        Vector3 projectedPosition = new Vector3(Position.x, 0, Position.z);
+        Vector3 boidVFSample = Flock.GetForceFromVectorField(this);
+        //Debug.Log("boidVFSample: " + boidVFSample);
+
+        Vector3 direction = projectedPosition + (boidVFSample * 0.1f);
+        Debug.DrawLine(Position, projectedPosition, Color.black);
+        Debug.DrawLine(projectedPosition, direction, Color.yellow);
+    }
 }

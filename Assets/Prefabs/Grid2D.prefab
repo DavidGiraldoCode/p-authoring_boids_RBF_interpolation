@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65dad0f867fb8420bb191e4335d7d3da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfColumns: 32
-  numberOfRows: 32
-  minPoint: d8ffffffd8ffffff
-  maxPoint: 2800000028000000
+  numberOfColumns: 16
+  numberOfRows: 16
+  minPoint: f6fffffff6ffffff
+  maxPoint: 0a0000000a000000

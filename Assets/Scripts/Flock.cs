@@ -85,13 +85,17 @@ public class Flock : MonoBehaviour
         get { return m_minSpeed; }
         set { m_minSpeed = value; }
     }
-    
+
     [SerializeField]
     private float m_drag = 0.1f;
     // Flow -----------------------------
     [Header("Flow control -----------")]
     [SerializeField]
     public bool hasFlow = false;
+    //TODO ------------------------------------- Vector Field
+    [Header("Vector Field Instance -----------")]
+    [SerializeField] private GameObject vectorField;
+    //TODO -------------------------------------
     public float Drag
     {
         get { return m_drag; }
@@ -126,9 +130,10 @@ public class Flock : MonoBehaviour
             yield return boid;
         }
     }
-    void Start()
+    void Awake()
     {
 
+        Instantiate(vectorField, transform.position, transform.rotation);
     }
 
     // Update is called once per frame
@@ -167,4 +172,21 @@ public class Flock : MonoBehaviour
     {
         return hasFlow;
     }
+
+    //TODO Vector Field
+
+    public Vector3 GetForceFromVectorField(Boid boid)
+    {
+        if (vectorField)
+        {
+
+            Vector3 projectedFlight = new Vector3(boid.Position.x, 0, boid.Position.z);
+            //Debug.Log("Interpolating at " + projectedFlight);
+            Vector3 force = vectorField.GetComponent<GridRenderer>().InterpolateVector(projectedFlight);
+            //Debug.Log("RESULT " + force);
+            return force;
+        }
+        return Vector3.zero;
+    }
+
 }
