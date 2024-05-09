@@ -11,8 +11,8 @@ public class Flock : MonoBehaviour
     [SerializeField]
     private Boid m_birdPrefab = null; //Passing a refernces to the assets Prefab
 
-    [SerializeField]
-    private float m_spawnRadius = 10;
+    [SerializeField] private float m_spawnRadius = 10;
+    [SerializeField] private GameObject spawnPointPrefab;
 
     [SerializeField]
     private BoxCollider m_bounds = null;
@@ -85,13 +85,18 @@ public class Flock : MonoBehaviour
         get { return m_minSpeed; }
         set { m_minSpeed = value; }
     }
-    
+
     [SerializeField]
     private float m_drag = 0.1f;
     // Flow -----------------------------
     [Header("Flow control -----------")]
-    [SerializeField]
-    public bool hasFlow = false;
+    [SerializeField] public bool hasFlow = false;
+    //TODO ------------------------------------- Vector Field
+    [Header("Vector Field Instance -----------")]
+    //[SerializeField] private GameObject vectorField;
+    [SerializeField] private GridRenderer gridRenderer;
+    [SerializeField] public bool hasVectorField = false;
+    //TODO -------------------------------------
     public float Drag
     {
         get { return m_drag; }
@@ -110,7 +115,7 @@ public class Flock : MonoBehaviour
     {
         for (int i = 0; i < m_numberOfBirds; ++i)
         {
-            Vector3 spawnPoint = transform.position + m_spawnRadius * Random.insideUnitSphere;
+            Vector3 spawnPoint = spawnPointPrefab != null ? spawnPointPrefab.transform.position + m_spawnRadius * Random.insideUnitSphere : transform.position + m_spawnRadius * Random.insideUnitSphere;
 
             for (int j = 0; j < 3; ++j)
                 spawnPoint[j] = Mathf.Clamp(spawnPoint[j], m_bounds.bounds.min[j], m_bounds.bounds.max[j]);
@@ -126,9 +131,10 @@ public class Flock : MonoBehaviour
             yield return boid;
         }
     }
-    void Start()
+    void Awake()
     {
 
+        gridRenderer = GetComponent<GridRenderer>();
     }
 
     // Update is called once per frame
@@ -167,4 +173,29 @@ public class Flock : MonoBehaviour
     {
         return hasFlow;
     }
+
+    //TODO Vector Field
+    public bool HasVectorField()
+    {
+        return hasVectorField;
+    }
+
+    public Vector3 GetForceFromVectorField(Boid boid)
+    {
+        if (gridRenderer)
+        {
+
+            Vector3 projectedFlight = new Vector3(boid.Position.x, 0, boid.Position.z);
+            //Debug.Log("Interpolating at " + projectedFlight);
+            //? Notice, callng GetComponent returns a reference to the component of a given GameObject
+            //? BUT, in this case the GridRenderer is empty. Is not retuning the current intance on the game ar Runtime
+            //? With the data it holds
+            //Vector3 force = vectorField.GetComponent<GridRenderer>().InterpolateVector(projectedFlight);
+            //Debug.Log("RESULT " + force);
+            Vector3 force = gridRenderer.InterpolateVector(boid.Position) * 20f;
+            return force;
+        }
+        return Vector3.zero;
+    }
+
 }
