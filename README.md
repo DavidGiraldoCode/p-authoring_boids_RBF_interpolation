@@ -31,8 +31,13 @@ I am implementing and applying their paper to author the flow of a flock of boid
     - [x]  Use the X and Z coordinates to sample a point in the vector field.
     - [x]  Interpolate the vector components with the RBFs
     - [x]  Apply the force of the field on the boid’s behavior
-- [ ]  Create zig zag
-- [ ]  Add a spawn zone
+- [x]  Create zig zag
+- [x]  Add a spawn zone
+- [ ]  Implement user-friendly way to set a source vector on the field
+    - [ ]  Detect GameObjects orientation as source vectors
+    - [ ]  Create a despawn zone
+- [ ]  Select a specific animal group behavior that can be represented with this method
+    - [ ]  Get the mesh
 
 ## More about crowd simulations
 

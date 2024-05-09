@@ -12,15 +12,15 @@ public class GridRenderer : MonoBehaviour
     [SerializeField] private int[] minPoint = { -10, -10 };
     [SerializeField] private int[] maxPoint = { 10, 10 };
     //TODO Pending for abstraction =======================================
-    private Vector3 sourceP1 = new Vector3(10, 0, 10);
-    private Vector3 sourceP2 = new Vector3(-8, 0, 8);
-    private Vector3 sourceP3 = new Vector3(-8, 0, -8);
-    private Vector3 sourceP4 = new Vector3(10, 0, -10);
+    private Vector3 sourceP1 = new Vector3(40, 0, -40);
+    private Vector3 sourceP2 = new Vector3(10, 0, -10);
+    private Vector3 sourceP3 = new Vector3(-10, 0, 10);
+    private Vector3 sourceP4 = new Vector3(-40, 0, 40);
 
-    private Vector3 sourceV1 = new Vector3(8, 0, 8);
-    private Vector3 sourceV2 = new Vector3(-8, 0, 8);
-    private Vector3 sourceV3 = new Vector3(6, 0, 6);
-    private Vector3 sourceV4 = new Vector3(-6, 0, 6);
+    private Vector3 sourceV1 = new Vector3(5, 0, 20);
+    private Vector3 sourceV2 = new Vector3(-20, 0, -5);
+    private Vector3 sourceV3 = new Vector3(5, 0, 20);
+    private Vector3 sourceV4 = new Vector3(-20, 0, -5);
     private List<Vector3> sourcePoints = new List<Vector3>();
     private List<Vector3> sourceVectors = new List<Vector3>();
     //? Temporal LIST of interpolated vectors

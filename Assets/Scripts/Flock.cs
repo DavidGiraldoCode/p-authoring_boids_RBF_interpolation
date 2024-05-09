@@ -11,8 +11,8 @@ public class Flock : MonoBehaviour
     [SerializeField]
     private Boid m_birdPrefab = null; //Passing a refernces to the assets Prefab
 
-    [SerializeField]
-    private float m_spawnRadius = 10;
+    [SerializeField] private float m_spawnRadius = 10;
+    [SerializeField] private GameObject spawnPointPrefab;
 
     [SerializeField]
     private BoxCollider m_bounds = null;
@@ -95,7 +95,7 @@ public class Flock : MonoBehaviour
     [Header("Vector Field Instance -----------")]
     //[SerializeField] private GameObject vectorField;
     [SerializeField] private GridRenderer gridRenderer;
-    [SerializeField] public bool  hasVectorField = false;
+    [SerializeField] public bool hasVectorField = false;
     //TODO -------------------------------------
     public float Drag
     {
@@ -115,7 +115,7 @@ public class Flock : MonoBehaviour
     {
         for (int i = 0; i < m_numberOfBirds; ++i)
         {
-            Vector3 spawnPoint = transform.position + m_spawnRadius * Random.insideUnitSphere;
+            Vector3 spawnPoint = spawnPointPrefab != null ? spawnPointPrefab.transform.position + m_spawnRadius * Random.insideUnitSphere : transform.position + m_spawnRadius * Random.insideUnitSphere;
 
             for (int j = 0; j < 3; ++j)
                 spawnPoint[j] = Mathf.Clamp(spawnPoint[j], m_bounds.bounds.min[j], m_bounds.bounds.max[j]);

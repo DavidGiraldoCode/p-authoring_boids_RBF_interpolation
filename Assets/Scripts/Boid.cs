@@ -155,7 +155,7 @@ public class Boid : MonoBehaviour
         Vector3 projectedPosition = new Vector3(Position.x, 0, Position.z);
         Vector3 boidVFSample = Flock.GetForceFromVectorField(this);
         //Debug.Log("boidVFSample: " + boidVFSample);
-        Vector3 directionOnVF = projectedPosition + (boidVFSample * 0.4f);
+        Vector3 directionOnVF = projectedPosition + (boidVFSample * 0.01f);
         //Vector3 projectedXZVelocity = new Vector3(Velocity.x, 0, Velocity.z);
         Debug.DrawLine(Position, projectedPosition, Color.black);
         Debug.DrawLine(projectedPosition, directionOnVF, Color.green);

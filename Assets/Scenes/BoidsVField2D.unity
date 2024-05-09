@@ -253,13 +253,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.13052629, y: -0, z: -0, w: 0.9914449}
-  m_LocalPosition: {x: 0, y: 2.35, z: -14.24}
+  m_LocalRotation: {x: 0.43909737, y: -0, z: -0, w: 0.8984395}
+  m_LocalPosition: {x: 0, y: 38.5, z: -29.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -15, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 52.093, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,24 +538,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 731e26e991243401ea8dcf2edbacf8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_numberOfBirds: 1
+  m_numberOfBirds: 10
   m_birdPrefab: {fileID: 482763261861772955, guid: 6c02cb8c505f74878bedb0ebf91f15b5,
     type: 3}
-  m_spawnRadius: 10
+  m_spawnRadius: 20
+  spawnPointPrefab: {fileID: 1570101840}
   m_bounds: {fileID: 1438368853}
   m_boundsForceFactor: 10
   m_cohesionForceFactor: 2
-  m_cohesionRadius: 6
-  m_separationForceFactor: 6
-  m_separationRadius: 2
-  m_alignmentForceFactor: 1
-  m_alignmentRadius: 3
+  m_cohesionRadius: 10
+  m_separationForceFactor: 16
+  m_separationRadius: 4
+  m_alignmentForceFactor: 2
+  m_alignmentRadius: 6
   m_maxSpeed: 20
-  m_minSpeed: 10
+  m_minSpeed: 5
   m_drag: 0
   hasFlow: 0
   gridRenderer: {fileID: 0}
-  hasVectorField: 0
+  hasVectorField: 1
 --- !u!114 &1438368856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -568,10 +569,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65dad0f867fb8420bb191e4335d7d3da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfColumns: 8
-  numberOfRows: 8
+  numberOfColumns: 24
+  numberOfRows: 24
   minPoint: ceffffffceffffff
   maxPoint: 3200000032000000
+--- !u!1 &1570101840
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1570101841}
+  m_Layer: 0
+  m_Name: BoidsSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1570101841
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1570101840}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 40, y: 10, z: -40}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2022199322
 GameObject:
   m_ObjectHideFlags: 0
@@ -688,3 +720,4 @@ SceneRoots:
   - {fileID: 1438368854}
   - {fileID: 99501722}
   - {fileID: 2022199326}
+  - {fileID: 1570101841}
