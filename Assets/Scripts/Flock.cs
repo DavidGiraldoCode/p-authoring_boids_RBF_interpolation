@@ -135,6 +135,7 @@ public class Flock : MonoBehaviour
     {
 
         gridRenderer = GetComponent<GridRenderer>();
+        
     }
 
     // Update is called once per frame

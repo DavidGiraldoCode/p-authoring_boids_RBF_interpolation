@@ -24,7 +24,7 @@ public class SourcePointAndVector : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(_sourceVector, Vector3.forward);
             sourceVectorController.transform.rotation = rotation;
 
-            //Debug.Log("============ Source Vector: " + _sourceVector);
+            Debug.Log("============ Source Vector: " + _sourceVector);
         }
     }
 
