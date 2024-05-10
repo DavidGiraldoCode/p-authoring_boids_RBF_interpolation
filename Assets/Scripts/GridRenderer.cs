@@ -30,18 +30,32 @@ public class GridRenderer : MonoBehaviour
     private double[,] matrixPHIforY;
     private double[] m_XLamdas;
     private double[] m_YLamdas;
-    void Start()
-    {
-        Debug.Log("GridRenderer up and running");
-        sourcePoints.Add(sourceP1);
-        sourcePoints.Add(sourceP2);
-        sourcePoints.Add(sourceP3);
-        sourcePoints.Add(sourceP4);
 
-        sourceVectors.Add(sourceV1);
-        sourceVectors.Add(sourceV2);
-        sourceVectors.Add(sourceV3);
-        sourceVectors.Add(sourceV4);
+    //TODO ------------------------------------- Vector Field Manual Control
+    [Header("Manual Controller -----------")]
+    [SerializeField] private GameObject sourceVectorsGO;
+    private SourceVectorContainer sourceVectorContainer;
+
+    void Awake()
+    {
+        sourceVectorContainer = sourceVectorsGO.GetComponent<SourceVectorContainer>();
+        for (int i = 0; i < sourceVectorContainer.SourcePositions.Length; i++)
+        {
+            sourcePoints.Add(sourceVectorContainer.SourcePositions[i]);
+            sourceVectors.Add(sourceVectorContainer.SourceVectors[i]);
+        }
+        
+
+        Debug.Log("GridRenderer up and running");
+        // sourcePoints.Add(sourceP1);
+        // sourcePoints.Add(sourceP2);
+        // sourcePoints.Add(sourceP3);
+        // sourcePoints.Add(sourceP4);
+
+        // sourceVectors.Add(sourceV1);
+        // sourceVectors.Add(sourceV2);
+        // sourceVectors.Add(sourceV3);
+        // sourceVectors.Add(sourceV4);
 
         m_XLamdas = new double[sourcePoints.Count];
         m_YLamdas = new double[sourcePoints.Count];
