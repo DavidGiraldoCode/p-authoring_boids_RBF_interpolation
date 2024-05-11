@@ -19,12 +19,12 @@ public class SourcePointAndVector : MonoBehaviour
             //Debug.Log("sourceVector: " + sourceVectorController.transform.localPosition);
             _sourcePoint = sourcePointController.transform.position;
             Debug.DrawLine(sourcePointController.transform.position, sourceVectorController.transform.position, Color.red);
-            _sourceVector = _sourcePoint - sourceVectorController.transform.position;
+            _sourceVector = sourceVectorController.transform.position - _sourcePoint;
             //Debug.Log("orientation: " + _sourceVector);
             Quaternion rotation = Quaternion.LookRotation(_sourceVector, Vector3.forward);
             sourceVectorController.transform.rotation = rotation;
 
-            Debug.Log("============ Source Vector: " + _sourceVector);
+            //Debug.Log("============ Source Vector: " + _sourceVector);
         }
     }
 
@@ -35,7 +35,7 @@ public class SourcePointAndVector : MonoBehaviour
         {
             _sourcePoint = sourcePointController.transform.position;
             Debug.DrawLine(_sourcePoint, sourceVectorController.transform.position, Color.red);
-            _sourceVector = _sourcePoint - sourceVectorController.transform.position;
+            _sourceVector = sourceVectorController.transform.position - _sourcePoint;
             Quaternion rotation = Quaternion.LookRotation(_sourceVector, Vector3.forward);
             sourceVectorController.transform.rotation = rotation;
         }

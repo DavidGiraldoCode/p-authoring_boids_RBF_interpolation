@@ -193,7 +193,7 @@ public class Flock : MonoBehaviour
             //? With the data it holds
             //Vector3 force = vectorField.GetComponent<GridRenderer>().InterpolateVector(projectedFlight);
             //Debug.Log("RESULT " + force);
-            Vector3 force = gridRenderer.InterpolateVector(boid.Position) * 20f;
+            Vector3 force = gridRenderer.InterpolateVector(boid.Position) * 10f;
             return force;
         }
         return Vector3.zero;
