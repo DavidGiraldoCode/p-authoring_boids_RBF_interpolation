@@ -102,14 +102,14 @@ public class GridRenderer : MonoBehaviour
     void Update()
     {
         RenderPointUniformGrid();
-        //TODO use a interation
-        int index = 0;
-        foreach (Vector3 point in sourcePoints)
-        {
-            RenderSourceVectorAtPoint(point, sourceVectors[index]);
-            index++;
-        }
-        index = 0;
+        //DONE use a interation
+        // int index = 0;
+        // foreach (Vector3 point in sourcePoints)
+        // {
+        //     RenderSourceVectorAtPoint(point, sourceVectors[index]);
+        //     index++;
+        // }
+        // index = 0;
     }
 
     public Vector3 InterpolateVector(Vector3 samplePoint)
@@ -184,7 +184,7 @@ public class GridRenderer : MonoBehaviour
         //Spline (S)
         double Skernel = r;
 
-        return Skernel;
+        return GSkernel;
     }
 
     //TODO Make it into another class
