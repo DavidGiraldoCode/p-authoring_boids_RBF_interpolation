@@ -184,7 +184,7 @@ public class GridRenderer : MonoBehaviour
         //Spline (S)
         double Skernel = r;
 
-        return GSkernel;
+        return Skernel;
     }
 
     //TODO Make it into another class
