@@ -149,7 +149,9 @@ public class GridRenderer : MonoBehaviour
         {
             Vector3 dir = lerpVectors[index];
             Vector3 direction = point + (dir * 0.2f);
-            Debug.DrawLine(point, direction, Color.grey);
+            float intensity = dir.magnitude * 4.0f;
+            Debug.DrawLine(point, direction, new Color(1.0f - (1.0f / dir.magnitude * 4.0f), 0.0f, 1.0f / dir.magnitude * 4.0f, 1f));
+
             index++;
         }
     }
@@ -210,7 +212,7 @@ public class GridRenderer : MonoBehaviour
                 {
                     matrixX[j, i] = vectors[j].x;
                     matrixY[j, i] = vectors[j].y;
-                    matrixY[j, i] = vectors[j].z;
+                    matrixZ[j, i] = vectors[j].z;
                 }
             }
         }
