@@ -9,8 +9,9 @@ public class GridRenderer : MonoBehaviour
     private UniformGrid m_grid;
     [SerializeField] private int numberOfColumns = 2;
     [SerializeField] private int numberOfRows = 2;
-    [SerializeField] private int[] minPoint = { -10, -10 };
-    [SerializeField] private int[] maxPoint = { 10, 10 };
+    [SerializeField] private int numberOfLayers = 2;
+    [SerializeField] private int[] minPoint = { -10, 10, -10 };
+    [SerializeField] private int[] maxPoint = { 10, 10, 10 };
     //TODO Pending for abstraction =======================================
     private Vector3 sourceP1 = new Vector3(40, 0, -40);
     private Vector3 sourceP2 = new Vector3(10, 0, -10);
@@ -44,7 +45,7 @@ public class GridRenderer : MonoBehaviour
             sourcePoints.Add(sourceVectorContainer.SourcePositions[i]);
             sourceVectors.Add(sourceVectorContainer.SourceVectors[i]);
         }
-        
+
 
         Debug.Log("GridRenderer up and running");
         // sourcePoints.Add(sourceP1);
@@ -67,7 +68,7 @@ public class GridRenderer : MonoBehaviour
         ComputeLamdasVector(matrixPHIforY, m_YLamdas);
 
         //* Sample points
-        m_grid = new UniformGrid(numberOfColumns, numberOfRows, minPoint, maxPoint);
+        m_grid = new UniformGrid(numberOfColumns, numberOfRows, numberOfLayers, minPoint, maxPoint);
         foreach (Vector3 point in m_grid)
         {
             lerpVectors.Add(InterpolateVector(point));
