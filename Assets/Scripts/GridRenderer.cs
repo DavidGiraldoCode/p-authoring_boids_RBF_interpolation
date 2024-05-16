@@ -13,15 +13,15 @@ public class GridRenderer : MonoBehaviour
     [SerializeField] private int[] minPoint = { -10, 10, -10 };
     [SerializeField] private int[] maxPoint = { 10, 10, 10 };
     //TODO Pending for abstraction =======================================
-    private Vector3 sourceP1 = new Vector3(40, 0, -40);
-    private Vector3 sourceP2 = new Vector3(10, 0, -10);
-    private Vector3 sourceP3 = new Vector3(-10, 0, 10);
-    private Vector3 sourceP4 = new Vector3(-40, 0, 40);
+    // private Vector3 sourceP1 = new Vector3(40, 0, -40);
+    // private Vector3 sourceP2 = new Vector3(10, 0, -10);
+    // private Vector3 sourceP3 = new Vector3(-10, 0, 10);
+    // private Vector3 sourceP4 = new Vector3(-40, 0, 40);
 
-    private Vector3 sourceV1 = new Vector3(5, 0, 20);
-    private Vector3 sourceV2 = new Vector3(-20, 0, -5);
-    private Vector3 sourceV3 = new Vector3(5, 0, 20);
-    private Vector3 sourceV4 = new Vector3(-20, 0, -5);
+    // private Vector3 sourceV1 = new Vector3(5, 0, 20);
+    // private Vector3 sourceV2 = new Vector3(-20, 0, -5);
+    // private Vector3 sourceV3 = new Vector3(5, 0, 20);
+    // private Vector3 sourceV4 = new Vector3(-20, 0, -5);
     private List<Vector3> sourcePoints = new List<Vector3>();
     private List<Vector3> sourceVectors = new List<Vector3>();
     //? Temporal LIST of interpolated vectors
@@ -29,8 +29,10 @@ public class GridRenderer : MonoBehaviour
 
     private double[,] matrixPHIforX;
     private double[,] matrixPHIforY;
+    private double[,] matrixPHIforZ;
     private double[] m_XLamdas;
     private double[] m_YLamdas;
+    private double[] m_ZLamdas;
 
     //TODO ------------------------------------- Vector Field Manual Control
     [Header("Manual Controller -----------")]
@@ -39,6 +41,7 @@ public class GridRenderer : MonoBehaviour
 
     void Awake()
     {
+        //1) Store all source points and their vectors
         sourceVectorContainer = sourceVectorsGO.GetComponent<SourceVectorContainer>();
         for (int i = 0; i < sourceVectorContainer.SourcePositions.Length; i++)
         {
@@ -58,15 +61,23 @@ public class GridRenderer : MonoBehaviour
         // sourceVectors.Add(sourceV3);
         // sourceVectors.Add(sourceV4);
 
+        //2) Initialize the size of the weights arrays 
         m_XLamdas = new double[sourcePoints.Count];
         m_YLamdas = new double[sourcePoints.Count];
+        m_ZLamdas = new double[sourcePoints.Count];
 
-        ComputeInterpolationMatricesXY(sourcePoints, sourceVectors);
+        //3) Compute interpolation matrices for X, Y and Z
+        ComputeInterpolationMatricesXYZ(sourcePoints, sourceVectors);
+        //4) Solve system of equation to compute weights for X, Y and Z
+        //  4.1) Apply Gaussian Elimination
         GaussianElimination(matrixPHIforX);
         GaussianElimination(matrixPHIforY);
+        GaussianElimination(matrixPHIforZ);
+        //  4.2) Solve for lamdas
         ComputeLamdasVector(matrixPHIforX, m_XLamdas);
         ComputeLamdasVector(matrixPHIforY, m_YLamdas);
-
+        ComputeLamdasVector(matrixPHIforZ, m_ZLamdas);
+        //5) Interpolate vector at sample point
         //* Sample points
         m_grid = new UniformGrid(numberOfColumns, numberOfRows, numberOfLayers, minPoint, maxPoint);
         foreach (Vector3 point in m_grid)
@@ -117,14 +128,16 @@ public class GridRenderer : MonoBehaviour
     {
         float interpolantX = 0;
         float interpolantY = 0;
+        float interpolantZ = 0;
         //Debug.Log("sourcePoints.Count" + sourcePoints.Count);
         //Debug.Log("m_XLamdas[i]" + m_XLamdas[0]);
         for (int i = 0; i < sourcePoints.Count; i++)
         {
             interpolantX += (float)m_XLamdas[i] * (float)Phi(samplePoint, sourcePoints[i]);
             interpolantY += (float)m_YLamdas[i] * (float)Phi(samplePoint, sourcePoints[i]);
+            interpolantZ += (float)m_ZLamdas[i] * (float)Phi(samplePoint, sourcePoints[i]);
         }
-        Vector3 interpolatedVector = new Vector3(interpolantX, 0, interpolantY);
+        Vector3 interpolatedVector = new Vector3(interpolantX, interpolantY, interpolantZ);
         //Debug.Log("samplePoint: " + samplePoint + " interpolantXY ( " + interpolantX + ", " + interpolantY + " )");
         //Debug.Log(" InterpolateVector() ->" + interpolatedVector);
         return interpolatedVector;
@@ -175,6 +188,38 @@ public class GridRenderer : MonoBehaviour
         matrixPHIforY = matrixY;
     }
 
+    private void ComputeInterpolationMatricesXYZ(List<Vector3> points, List<Vector3> vectors) //Relationship between source points
+    {
+        int rows = points.Count;
+        int columns = points.Count + 1;
+        double[,] matrixX = new double[rows, columns];
+        double[,] matrixY = new double[rows, columns];
+        double[,] matrixZ = new double[rows, columns];
+
+        for (int j = 0; j < rows; j++)
+        {
+            for (int i = 0; i < columns; i++)
+            {
+                if (i < rows)
+                {
+                    matrixX[j, i] = Phi(points[j], points[i]);
+                    matrixY[j, i] = Phi(points[j], points[i]);
+                    matrixZ[j, i] = Phi(points[j], points[i]);
+                }
+                else
+                {
+                    matrixX[j, i] = vectors[j].x;
+                    matrixY[j, i] = vectors[j].y;
+                    matrixY[j, i] = vectors[j].z;
+                }
+            }
+        }
+
+        matrixPHIforX = matrixX;
+        matrixPHIforY = matrixY;
+        matrixPHIforZ = matrixZ;
+    }
+
     private double Phi(Vector3 vector_j, Vector3 vector_i) //RBF
     {
         Vector3 distance = vector_j - vector_i;
@@ -185,7 +230,7 @@ public class GridRenderer : MonoBehaviour
         //Spline (S)
         double Skernel = r;
 
-        return Skernel;
+        return GSkernel;
     }
 
     //TODO Make it into another class

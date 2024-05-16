@@ -186,7 +186,7 @@ public class Flock : MonoBehaviour
         if (gridRenderer)
         {
 
-            Vector3 projectedFlight = new Vector3(boid.Position.x, 0, boid.Position.z);
+            Vector3 projectedFlight = new Vector3(boid.Position.x, boid.Position.y, boid.Position.z);
             //Debug.Log("Interpolating at " + projectedFlight);
             //? Notice, callng GetComponent returns a reference to the component of a given GameObject
             //? BUT, in this case the GridRenderer is empty. Is not retuning the current intance on the game ar Runtime
