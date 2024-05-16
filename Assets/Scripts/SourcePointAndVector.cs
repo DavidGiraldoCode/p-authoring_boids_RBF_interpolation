@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class SourcePointAndVector : MonoBehaviour
 {
-    // Start is called before the first frame update
     [SerializeField] private GameObject arrowGumble;
     [SerializeField] private GameObject sourcePointController;
     [SerializeField] private GameObject sourceVectorController;
