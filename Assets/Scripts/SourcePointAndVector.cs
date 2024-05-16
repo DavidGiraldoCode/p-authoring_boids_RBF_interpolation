@@ -1,5 +1,6 @@
 using UnityEngine;
-
+//[RequireComponent(typeof(Boid))]
+[RequireComponent(typeof(LineRenderer))]
 public class SourcePointAndVector : MonoBehaviour
 {
     [SerializeField] private GameObject arrowGumble;
@@ -10,6 +11,8 @@ public class SourcePointAndVector : MonoBehaviour
     public Vector3 SourcePoint => _sourcePoint != null ? _sourcePoint : Vector3.zero;
     private Vector3 _sourceVector;
     public Vector3 SourceVector => _sourceVector != null ? _sourceVector : Vector3.zero;
+    //Visualization on game view
+    private LineRenderer lineRenderer;
     void Awake()
     {
         if (arrowGumble && sourcePointController && sourceVectorController)
@@ -25,6 +28,7 @@ public class SourcePointAndVector : MonoBehaviour
 
             //Debug.Log("============ Source Vector: " + _sourceVector);
         }
+        lineRenderer = GetComponent<LineRenderer>();
     }
 
     // Update is called once per frame
@@ -37,6 +41,9 @@ public class SourcePointAndVector : MonoBehaviour
             _sourceVector = sourceVectorController.transform.position - _sourcePoint;
             Quaternion rotation = Quaternion.LookRotation(_sourceVector, Vector3.forward);
             sourceVectorController.transform.rotation = rotation;
+
+            lineRenderer.SetPosition(0, _sourcePoint);
+            lineRenderer.SetPosition(1, sourceVectorController.transform.position);
         }
     }
 }
