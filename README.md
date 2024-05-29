@@ -2,7 +2,6 @@
 
 **🚧 I am currently working on my final project for the course DH2323 Computer Graphics and Interaction at KTH Royal Institute of Technology.**
 <br/>
-<br/>
 How do we interpolate when there is no grid? Having no sample grid is a scattered data problem for which traditional linear interpolation does not suffice. Thus, Radial Basis Functions exist as a solution for this problem by defining a function capable of interpolating any given discrete value in space, given all the values at source points.
 
 $$
