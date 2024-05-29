@@ -2,7 +2,6 @@
 
 **🚧 I am currently working on my final project for the course DH2323 Computer Graphics and Interaction at KTH Royal Institute of Technology.**
 <br/>
-<br/>
 How do we interpolate when there is no grid? Having no sample grid is a scattered data problem for which traditional linear interpolation does not suffice. Thus, Radial Basis Functions exist as a solution for this problem by defining a function capable of interpolating any given discrete value in space, given all the values at source points.
 
 $$
@@ -55,11 +54,12 @@ I am implementing and applying their paper to author the flow of a flock of boid
     - [x]  Apply the force of the field on the boid’s behavior
 - [x]  Create zig zag
 - [x]  Add a spawn zone
-- [ ]  Implement user-friendly way to set a source vector on the field
-    - [ ]  Detect GameObjects orientation as source vectors
+- [ ]  Implement a user-friendly way to set a source vector on the field
+    - [x]  Detect GameObjects orientation as source vectors
+    - [ ]  Fix the order of execution. The interpolant is computed before the manual vector initializes. Use events to bubble up the information and compute.
     - [ ]  Create a despawn zone
 - [ ]  Select a specific animal group behavior that can be represented with this method
-    - [ ]  Get the mesh
+    - [x]  Get the mesh: possible alternative https://assetstore.unity.com/packages/3d/characters/animals/birds/low-poly-bird-raven-192706
 
 ## More about crowd simulations
 

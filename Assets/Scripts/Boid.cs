@@ -44,6 +44,8 @@ public class Boid : MonoBehaviour
 
         //? Visualizing projected flight
         ProjectFlightOntoVectorField();
+
+        
     }
 
     //Internal computation of the forces:
