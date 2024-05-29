@@ -1,8 +1,9 @@
 # Authoring Boids using RBF interpolation - DH2323 Final project at KTH
-
-## An interactive authoring method for steering boids for video games using Radial Basis Functions (RBF)
-
-# **Abstract**
+<div style = "display: flex">
+    <img width="100%" src="https://github.com/DavidGiraldoCode/p-bois_steering_behaviors/blob/develop/Assets/Art/Images/rbf_boids_cover.jpg"/>
+<div/>
+    
+### **Abstract**
 
 *Authoring the behavior of many virtual agents is time-consuming, involving multiple parameters and context-specific needs. Some steering algorithms use vector fields to influence agents' global paths. Jin's [JXJ*09] method stands out due to its use of Radial Basis Functions for gridless vector interpolation. This paper extends Jin's method to 3D vector fields for controlling the Boids algorithm by Reynolds (1998) and uses SteerBench test cases to evaluate this approach. Simulations showed Boids maneuvering through S shapes and shrinking to pass through narrow spaces. Implementation details and source code are available online.*
 
@@ -11,10 +12,10 @@
 This study’s implementation introduces an approach that combines Jin’s flow field with Raynolds’ Boids algorithm, aiming to create a more plausible and visually appealing result for bird-like agents. The system ensures that the Boids maintain a balanced distance from each other, avoiding both excessive spreading and collisions while following a predefined path. The simulation used C# in Unity 2022.3 LTS without the use of any additional package or third-party API.
 
 ## Process and updates highlights
-2024 May 9
-<br/>
-<img width="640px" src="https://github.com/DavidGiraldoCode/p-bois_steering_behaviors/blob/boid_follow_vector_field/Assets/Art/Images/boid_zig_zag.gif"/>
-<br/>
+2024 May 20
+<div style = "display: flex">
+    <img width="100%" src="https://github.com/DavidGiraldoCode/p-bois_steering_behaviors/blob/develop/Assets/Art/Images/RBF_step_by_step_boids.jpg"/>
+<div/>
 2024 May 6
 <br/>
 <div style = "display: flex">
@@ -30,9 +31,13 @@ This study’s implementation introduces an approach that combines Jin’s flow 
 
 How do we interpolate when there is no grid? Having no sample grid is a scattered data problem for which traditional linear interpolation does not suffice. Thus, Radial Basis Functions exist as a solution for this problem by defining a function capable of interpolating any given discrete value in space, given all the values at source points.
 
+<div style = "display: flex">
+    <img width="50%" src="https://github.com/DavidGiraldoCode/p-bois_steering_behaviors/blob/develop/Assets/Art/Images/rbf_equations.jpg"/>
+<div/>
+
+
 $$
 S(\mathbf{x}) = \sum_{i=1}^{n} \lambda_i \phi(||\mathbf{x} - \mathbf{x}_i||), \quad \mathbf{x} \in \mathbb{R}^d.
-
 $$
 
 $$
@@ -99,5 +104,6 @@ Defining a virtual agent’s behavior is known as authoring simulations, a multi
 This paper focuses on Path-planing, which refers to authoring agents on a global scale, ideal when seeking to control large, endless crowds in complex environments not limited to a time window [LBC*22]. For global planning to happen, techniques such as Flows leverage vector fields that influence the path agents take without specifying individual paths explicitly. [LBC*22]
 
 ## References
+Pulsar Bytes provided the bird mesh at the Unity Assets Store. Sound provided by SilentSeason at freesound.com.
 
-Please refer to
+Please refer to the section: [References](https://github.com/DavidGiraldoCode/p-authoring_boids_RBF_interpolation/blob/develop/Refences.md)
