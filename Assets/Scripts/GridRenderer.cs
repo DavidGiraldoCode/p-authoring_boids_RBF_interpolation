@@ -38,6 +38,8 @@ public class GridRenderer : MonoBehaviour
     [Header("Manual Controller -----------")]
     [SerializeField] private GameObject sourceVectorsGO;
     private SourceVectorContainer sourceVectorContainer;
+    [Tooltip("Biharmonic kernel 0, Gaussian kernel 1")]
+    [SerializeField] private int m_kernel = 0;
 
     void Awake()
     {
@@ -229,10 +231,12 @@ public class GridRenderer : MonoBehaviour
         //TODO: Define the shape of the Gaussian kernel as a variable
         //Gaussian (GS)
         double GSkernel = Math.Exp(-0.001 * Math.Pow(r, 2));
-        //Spline (S)
+        //Spline (S) biharmonic (φ(r) = r)
         double Skernel = r;
+        //triharmonic (φ(r) = r3)
+        double TSkernel = Math.Pow(r,3);
 
-        return GSkernel;
+        return m_kernel >= 1 ? GSkernel : Skernel;
     }
 
     //TODO Make it into another class
