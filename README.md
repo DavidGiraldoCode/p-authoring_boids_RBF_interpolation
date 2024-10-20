@@ -7,6 +7,8 @@
 
 *Authoring the behavior of many virtual agents is time-consuming, involving multiple parameters and context-specific needs. Some steering algorithms use vector fields to influence agents' global paths. Jin's [JXJ*09] method stands out due to its use of Radial Basis Functions for gridless vector interpolation. This paper extends Jin's method to 3D vector fields for controlling the Boids algorithm by Reynolds (1998) and uses SteerBench test cases to evaluate this approach. Simulations showed Boids maneuvering through S shapes and shrinking to pass through narrow spaces. Implementation details and source code are available online.*
 
+[Video DEMO](https://youtu.be/nZEUKUlAuHc)
+
 # Implementation
 
 This study’s implementation introduces an approach that combines Jin’s flow field with Raynolds’ Boids algorithm, aiming to create a more plausible and visually appealing result for bird-like agents. The system ensures that the Boids maintain a balanced distance from each other, avoiding both excessive spreading and collisions while following a predefined path. The simulation used C# in Unity 2022.3 LTS without the use of any additional package or third-party API.
