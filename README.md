@@ -15,7 +15,6 @@ You may cite this work as:
 
 Giraldo D, Authoring Boids using RBF interpolation (2024). C#. Available: https://github.com/DavidGiraldoCode/p-authoring_boids_RBF_interpolation
 
-
 # Implementation
 
 This study’s implementation introduces an approach that combines Jin’s flow field with Raynolds’ Boids algorithm, aiming to create a more plausible and visually appealing result for bird-like agents. The system ensures that the Boids maintain a balanced distance from each other, avoiding both excessive spreading and collisions while following a predefined path. The simulation used C# in Unity 2022.3 LTS without the use of any additional package or third-party API.
