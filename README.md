@@ -7,13 +7,16 @@
 
 *Authoring the behavior of many virtual agents is time-consuming, involving multiple parameters and context-specific needs. Some steering algorithms use vector fields to influence agents' global paths. Jin's [JXJ*09] method stands out due to its use of Radial Basis Functions for gridless vector interpolation. This paper extends Jin's method to 3D vector fields for controlling the Boids algorithm by Reynolds (1998) and uses SteerBench test cases to evaluate this approach. Simulations showed Boids maneuvering through S shapes and shrinking to pass through narrow spaces. Implementation details and source code are available online.*
 
-[Video DEMO](https://youtu.be/nZEUKUlAuHc)
+Supervisor: [Prof. Christopher Peters](https://www.kth.se/profile/chpeters)
 
-[Full Report](https://drive.google.com/file/d/1k3AKPGAwXgeN48xWnjw-gUNlBZpsrc0d/view)
+[🎬 Video DEMO](https://youtu.be/nZEUKUlAuHc)
 
-You may cite this work as:
+[📝 Full Report](/David%20DH2323%20Authoring%20Boids%20using%20RBF%20interpolation.pdf)
 
-Giraldo D, Authoring Boids using RBF interpolation (2024). C#. Available: https://github.com/DavidGiraldoCode/p-authoring_boids_RBF_interpolation
+
+**You may cite this work as:**
+
+_Giraldo D, Authoring Boids using RBF interpolation (2024). C#. Available: https://github.com/DavidGiraldoCode/p-authoring_boids_RBF_interpolation_
 
 # Implementation
 
